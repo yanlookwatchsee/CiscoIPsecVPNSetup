@@ -64,6 +64,8 @@ echo -n 'Provisioning ... '
 
 #modify quick.racoon.conf 
 sed -i "s/\(.*pool_size\) \([0-9]\+\)/\1 ${ip_number}/" quick.racoon.conf
+touch /etc/racoon/quick.racoon.psk
+chmod 600 /etc/racoon/quick.racoon.psk
 
 #start racoon
 

@@ -6,7 +6,7 @@ read user
 echo -n 'password:'
 read pass
 useradd -r ${user}
-echo '${pass}\n${pass}\n\n' |  passwd ${user}
+echo -e "${pass}\n${pass}\n" |  passwd ${user}
 
 
 
