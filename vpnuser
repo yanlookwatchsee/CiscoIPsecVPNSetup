@@ -36,6 +36,8 @@ if [ $cmd == 'show' ]; then
 	for mem in $list; do
 		echo ${mem}
 	done
+	echo 'FYI, the identity and pre-shared-key(PSK) can be found in /etc/racoon/quick.racoon.psk'
+	
 fi
 
 
