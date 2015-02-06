@@ -33,15 +33,15 @@ $ sudo ./vpnuser add
 
 6 Check Cisco IPsec client on your device, if not, install it. (IOS and OSX have built-in Cisco Ipsec client)
 And connect to the public IP of the server from your device!
-Normally, you need to provide "user account (vpnuser name)", "user password", "identity (in IOS, it is called as 'group name')" and pre-shared key (PSK). Note that if you have to choose authentication method, choose 'PSK' for authentication.
+>**Tips** Normally, you need to provide "user account (vpnuser name)", "user password", "identity (in IOS, it is called as 'group name')" and pre-shared key (PSK). Note that if you have to choose authentication method, choose 'PSK' for authentication.
 
 
-
+----------
 
 **For technical details, pelase refer to the scripts. It is really straightforward.**
 
 
-
+----------
 
 **References**
 
