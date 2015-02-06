@@ -75,6 +75,17 @@ ip_addr=`ip addr show dev eth0 | sed -n 's/inet \([0-9.]\+\).*/\1/p'`
 #configrate source-NAT: iptables 
 #sysctl -w net.ipv4.ip_forward=1
 #iptables -t nat -A POSTROUTING -s 192.168.177.0/24 -o eth0 -j SNAT --to ${ip_addr}
+
 echo 'done'
+echo '#'
+echo '#'
+echo '#'
+echo '#'
+echo '#################################################################'
+echo '# Now you can connect to this public IP to try Cisco IPsec VPN  #'
+echo '#################################################################'
+echo '#'
+echo '#'
+echo '#'
 
 

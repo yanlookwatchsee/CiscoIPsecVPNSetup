@@ -1,4 +1,8 @@
-1. set up Amazon EC2 virtual machine (free tier, 15G Internet bandwidth, Ubuntu 14);
+1. set up Amazon EC2 virtual machine
+	- Free tier, 15G Internet bandwidth
+	- Ubuntu Server 14.04 LTS (HVM), SSD Volume Type
+	- Inbound poliy: open UDP port 500 ans UDP port 4500
+	
 2. Install racoon: sudo apt-get install racoon
 3. Prepare your VPN preference: internal IP segment, ID(IOS called "group name"), PSK(pre-shared key), user/passwd;
 4. In Ubuntu linux, adduser as "user/passwd";
