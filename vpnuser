@@ -1,0 +1,41 @@
+#!/bin/bash
+usage () {
+	echo 'Usage:'
+	echo './vpnuser add'
+	echo './vpnuser del [username]'
+	echo './vpnuser show'
+	echo ''
+	exit
+}
+cmd=$1
+if [ -z $cmd ]; then
+	usage
+fi
+if [ $cmd == 'add' ]; then
+	addgroup vpnuser 2> /dev/null
+	echo 'Add user and password:'
+	echo -n 'add an user:'
+	read user
+	echo -n 'password:'
+	read pass
+	useradd -r ${user} -g vpnuser
+	echo -e "${pass}\n${pass}\n" |  passwd ${user}
+fi
+if [ $cmd == 'del' ]; then
+	if [ -z $2 ]; then
+		usage
+	fi
+	userdel $2	
+fi
+
+if [ $cmd == 'show' ]; then 
+	if [ -z `which members` ]; then
+		apt-get install members
+	fi
+	list=`members vpnuser`
+	for mem in $list; do
+		echo ${mem}
+	done
+fi
+
+
