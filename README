@@ -1,0 +1,12 @@
+1. set up Amazon EC2 virtual machine (free tier, 15G Internet bandwidth, Ubuntu 14);
+2. Install racoon: sudo apt-get install racoon
+3. Prepare your VPN preference: internal IP segment, ID(IOS called "group name"), PSK(pre-shared key), user/passwd;
+4. In Ubuntu linux, adduser as "user/passwd";
+5. Configurate racoon: racoon.conf (internal IP segment), psk.txt(ID,PSK);
+6. start racoon: sudo racoon;
+7. configrate source-NAT: iptables
+8. Check Cisco IPsec client, if not, install it. (IOS and OSX have built-in Cisco Ipsec client)
+
+
+DONE
+
