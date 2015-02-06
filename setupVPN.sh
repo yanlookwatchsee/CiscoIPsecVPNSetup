@@ -51,19 +51,29 @@ echo 'Number of device allowed to connect: '${ip_number}
 #Configurate racoon: racoon.conf (internal IP segment), psk.txt(ID,PSK);
 echo -n 'Provisioning ... '
 
+ip_addr=`ip addr show dev eth0 | sed -n 's/inet \([0-9.]\+\).*/\1/p'`
 #modify quick.racoon.conf 
 sed -i "s/\(.*pool_size\) \([0-9]\+\)/\1 ${ip_number}/" quick.racoon.conf
+sed -i  "s/isakmp[ \t]\+[0-9.]\+/isakmp ${ip_addr}/" quick.racoon.conf
+sed -i "s/isakmp_natt[ \t]\+[0-9.]\+/isakmp_natt ${ip_addr}/" quick.racoon.conf
+cp quick.racoon.conf /etc/racoon/racoon.conf
+
 touch /etc/racoon/quick.racoon.psk
 chmod 600 /etc/racoon/quick.racoon.psk
 
 #start racoon
+if [ -z `pidof racoon` ]; then
+	racoon 
+else
+	racoonctl reload-config
+fi
 
-#racoon -f quick.racoon.conf
-
-ip_addr=`ip addr show dev eth0 | sed -n 's/inet \([0-9.]\+\).*/\1/p'`
 #configrate source-NAT: iptables 
-#sysctl -w net.ipv4.ip_forward=1
-#iptables -t nat -A POSTROUTING -s 192.168.177.0/24 -o eth0 -j SNAT --to ${ip_addr}
+sysctl -w net.ipv4.ip_forward=1
+nated=`iptables -n -t nat -L | sed  -n "s/SNAT.*all.*192.168.177.0\/24.*0.0.0.0.*/yes/p"`
+if [ -z "${nated}" ]; then
+	iptables -t nat -A POSTROUTING -s 192.168.177.0/24 -o eth0 -j SNAT --to ${ip_addr}
+fi
 
 echo 'done'
 echo '#'
