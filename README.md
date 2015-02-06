@@ -33,7 +33,34 @@ $ sudo ./vpnuser add
 
 6 Check Cisco IPsec client on your device, if not, install it. (IOS and OSX have built-in Cisco Ipsec client)
 And connect to the public IP of the server from your device!
+Normally, you need to provide "user account (vpnuser name)", "user password", "identity (in IOS, it is called as 'group name')" and pre-shared key (PSK). Note that if you have to choose authentication method, choose 'PSK' for authentication.
+
+
+
 
 **For technical details, pelase refer to the scripts. It is really straightforward.**
+
+
+
+
+**References**
+
+*[How to build a remote user access VPN with Racoon] 
+
+*[Simple Configuration Sample of IPsec/Racoon]
+
+*[Chapter 7. IPSEC: secure IP over the Internet]
+ 
+*[racoon(8) - Linux man page]
+
+*[racoon mode_cfg section]
+
+
+[How to build a remote user access VPN with Racoon]: http://www.netbsd.org/docs/network/ipsec/rasvpn.html
+[Simple Configuration Sample of IPsec/Racoon]: http://www.kame.net/newsletter/20001119/
+[Chapter 7. IPSEC: secure IP over the Internet]: http://www.lartc.org/howto/lartc.ipsec.html
+[racoon(8) - Linux man page]: http://linux.die.net/man/8/racoon
+[racoon mode_cfg section]: https://www.shrew.net/static/help-1.0.x/mode_cfgsection.htm
+
 
 
