@@ -1,7 +1,8 @@
 ##################################################
+Set up VPN, 6 steps:
+
 1. set up Amazon EC2 virtual machine
-	- Free tier, 15G Internet bandwidth
-	- Ubuntu Server 14.04 LTS (HVM), SSD Volume Type
+	- Ubuntu Server 14.04 LTS
 	- Inbound poliy: open UDP port 500 ans UDP port 4500
 
 2. Get source
@@ -9,6 +10,15 @@
 
 3. Run setup script
 	$ sudo ./setupVPN.sh
+
+4. Add identity and pre-shared key
+	$ sudo ./addIdentity
+
+5. Add user and password
+	$ sudo ./vpnuser add
+
+6. Check Cisco IPsec client on your device, if not, install it. (IOS and OSX have built-in Cisco Ipsec client)
+And connect to the public IP of the server from your device!
 
 
 ##################################################
@@ -24,8 +34,7 @@ How to manually set up the Cisco IPsec VPN:
 
  
 ##################################################
-Check Cisco IPsec client on your device, if not, install it. (IOS and OSX have built-in Cisco Ipsec client)
-And connect!
+
 
 
 References:
