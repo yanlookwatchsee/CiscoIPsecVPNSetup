@@ -21,21 +21,10 @@ fi
 
 #Install racoon: sudo apt-get install racoon
 
-echo  "Racoon check ..."
-racoon_path=`which racoon`
-if [ -n ${racoon_path} ]; then
-	ipsec_version=`racoon -V | sed -n 's/.*ipsec-tools \([0-9\.]\+\).*/\1/p'`;
-	echo ${ipsec_version}
-fi
+echo  "Install/update Racoon ... begin"
+apt-get install racoon
+echo  "Install/update Racoon ... done"
 
-version_compare ${ipsec_version} '0.5'
-ret=$?
-if [ ${ret} == 1 ]; then
-	echo 'version check pass'
-else
-	echo 'ipsec-tool minimal version > 0.5 required.'
-	exit
-fi
 #
 #Prepare your VPN preference: internal IP segment, ID(IOS called "group name"), 
 #PSK(pre-shared key), user/passwd;
