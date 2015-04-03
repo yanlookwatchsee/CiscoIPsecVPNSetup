@@ -1,8 +1,4 @@
 #!/bin/bash
-version_compare () {
-	#todo
-	return 1
-}
 #set up Amazon EC2 virtual machine (free tier, 15G Internet bandwidth, Ubuntu 14);
 echo "System check ..."
 os=`uname -a | sed -n 's/.*\(Linux\).*\(Ubuntu\).*'/\1-\2/p`;
@@ -11,13 +7,10 @@ if [ -z ${os} ] ; then
 	exit
 fi
 machine=`uname -m`;
-if [ -z ${machine} ]; then 
-	echo "x86_64 machine required, exit.";
-	exit
-fi
-if [ ${machine} != "x86_64" ]; then
+if [ -z ${machine} -o ${machine} != "x86_64" ]; then
 	echo "x86_64 machine required, exit.";
 fi
+
 
 #Install racoon: sudo apt-get install racoon
 
@@ -50,8 +43,19 @@ echo 'Number of device allowed to connect: '${ip_number}
 
 #Configurate racoon: racoon.conf (internal IP segment), psk.txt(ID,PSK);
 echo -n 'Provisioning ... '
+iface_info=$(ip addr show up | \
+awk '/^[0-9]+:[ \t]/ {ctx=$2} /inet[ \t]/ {if (ctx ~ /eth|en/) iface[ctx]=$2" "iface[ctx]} END {for (c in iface) print c" "iface[c]}')
 
-ip_addr=`ip addr show dev eth0 | sed -n 's/inet \([0-9.]\+\).*/\1/p'`
+echo "Valid Interfaces Detected:"
+echo $iface_info
+echo "Using the fist valid interface and its first valid IP addr ..."
+first_valid_iface=$(sed -n '1p' <<<$iface_info)
+ip_list=${first_valid_iface#* }
+ip_number=${ip_list%%/*}
+dev_name=${first_valid_iface%%:*}
+echo "Will use the dev and IP: "$dev_name", "$ip_number
+
+
 #modify quick.racoon.conf 
 sed -i "s/\(.*pool_size\) \([0-9]\+\)/\1 ${ip_number}/" quick.racoon.conf
 sed -i  "s/isakmp[ \t]\+[0-9.]\+/isakmp ${ip_addr}/" quick.racoon.conf
@@ -72,7 +76,7 @@ fi
 sysctl -w net.ipv4.ip_forward=1
 nated=`iptables -n -t nat -L | sed  -n "s/SNAT.*all.*192.168.177.0\/24.*0.0.0.0.*/yes/p"`
 if [ -z "${nated}" ]; then
-	iptables -t nat -A POSTROUTING -s 192.168.177.0/24 -o eth0 -j SNAT --to ${ip_addr}
+	iptables -t nat -A POSTROUTING -s 192.168.177.0/24 -o $dev_name -j SNAT --to ${ip_addr}
 fi
 
 echo 'done'
