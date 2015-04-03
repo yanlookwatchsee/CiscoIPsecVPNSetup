@@ -8,7 +8,7 @@ Script to quick set up Cisco IPsec VPN based on raccoon,  iptables and Ubuntu.
     
 - Sign in/up Amazon EC2 service, and choose the region that is nearest from your location. (e.g. if you are in China, maybe Singapore is a good choice.)
 - Launch a instance of Ubuntu Server 14.04 LTS
-- Inbound poliy: open UDP port 500 ans UDP port 4500 (important!)
+- Inbound poliy: open UDP port <b>500</b> ans UDP port <b>4500</b> (<b>important</b>)
 
 2 Get source
 
