@@ -51,7 +51,7 @@ echo $iface_info
 echo "Using the fist valid interface and its first valid IP addr ..."
 first_valid_iface=$(sed -n '1p' <<<$iface_info)
 ip_list=${first_valid_iface#* }
-ip_number=${ip_list%%/*}
+ip_addr=${ip_list%%/*}
 dev_name=${first_valid_iface%%:*}
 echo "Will use the dev and IP: "$dev_name", "$ip_number
 
